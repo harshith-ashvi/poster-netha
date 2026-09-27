@@ -1,0 +1,142 @@
+.root {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.tape {
+  position: relative;
+  z-index: 2;
+  flex: none;
+  height: 34px;
+  background: repeating-linear-gradient(-45deg, #ffcc00 0 34px, #161616 34px 68px);
+  border-top: 3px solid #161616;
+  border-bottom: 3px solid #161616;
+}
+
+/* Road in perspective from the horizon down to the bottom edge */
+.road {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 46%;
+  bottom: 0;
+  background: linear-gradient(180deg, #3b3b3b, #1c1c1c);
+  clip-path: polygon(42% 0, 58% 0, 100% 100%, 0 100%);
+}
+.laneLine {
+  position: absolute;
+  left: 50%;
+  top: 46%;
+  bottom: 0;
+  width: 60px;
+  transform: translateX(-50%);
+  background: repeating-linear-gradient(180deg, #fff 0 60px, transparent 60px 120px);
+  clip-path: polygon(46% 0, 54% 0, 80% 100%, 20% 100%);
+}
+
+.top {
+  padding-top: 18px;
+}
+.head {
+  position: relative;
+  margin: 14px 50px 0;
+  text-align: center;
+}
+
+/* Green highway sign on two posts */
+.signWrap {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  margin-top: 18px;
+}
+.post {
+  position: absolute;
+  top: 40px;
+  width: 22px;
+  height: 460px;
+  background: linear-gradient(90deg, #6d6d6d, #c9c9c9 50%, #6d6d6d);
+}
+.sign {
+  position: relative;
+  width: 860px;
+  padding: 18px 36px 22px;
+  background: #0b6b3a;
+  border: 6px solid #0b6b3a;
+  outline: 5px solid #fff;
+  outline-offset: -16px;
+  border-radius: 22px;
+  text-align: center;
+  color: #fff;
+}
+.signNumber {
+  font-family: var(--font-anton), var(--font-hi), var(--font-ta), var(--font-te), var(--font-kn), sans-serif;
+  line-height: 1.05;
+  text-transform: uppercase;
+  overflow-wrap: anywhere;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+.signText {
+  margin-top: 4px;
+  font-family: var(--font-poppins), var(--font-hi), var(--font-ta), var(--font-te), var(--font-kn), sans-serif;
+  font-weight: 700;
+  line-height: 1.2;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  overflow-wrap: anywhere;
+}
+
+.ba {
+  position: relative;
+  flex: none;
+  height: 210px;
+  margin: 22px 70px 0;
+}
+
+.bottom {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  align-items: flex-end;
+  gap: 24px;
+  padding: 0 40px 16px;
+}
+.hero {
+  flex: none;
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+  padding-top: 64px; /* room for the hard hat */
+}
+.hat {
+  position: absolute;
+  left: 50%;
+  top: -36%;
+  z-index: 2;
+  transform: translateX(-50%) rotate(-8deg);
+}
+.tagline {
+  flex: 1;
+  min-width: 0;
+  padding: 14px 22px;
+  margin-bottom: 20px;
+  background: #ff8a00;
+  border: 5px solid #161616;
+  border-radius: 10px;
+  font-family: var(--font-rozha), var(--font-hi), serif;
+  font-size: 32px;
+  line-height: 1.15;
+  color: #161616;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+}

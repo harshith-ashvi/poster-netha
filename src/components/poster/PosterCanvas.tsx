@@ -3,13 +3,22 @@
 import { useLayoutEffect, useRef, useState, type CSSProperties, type Ref } from "react";
 import { THEMES } from "@/lib/presets";
 import type { PosterData, TemplateId } from "@/lib/types";
+import { Achievement } from "./templates/Achievement";
 import { Blessings } from "./templates/Blessings";
+import { Development } from "./templates/Development";
+import { Inauguration } from "./templates/Inauguration";
+import { Infrastructure } from "./templates/Infrastructure";
 
 export const STAGE_W = 1080;
 export const STAGE_H = 1350;
 
-// ponytail: templates not built yet fall back to Blessings (Phase 5 fills these in).
-const TEMPLATES: Partial<Record<TemplateId, typeof Blessings>> = { blessings: Blessings };
+const TEMPLATES: Record<TemplateId, typeof Blessings> = {
+  blessings: Blessings,
+  inauguration: Inauguration,
+  achievement: Achievement,
+  development: Development,
+  infrastructure: Infrastructure,
+};
 
 // Fixed 1080x1350 stage scaled to fit its container. Export from `stageRef` (the unscaled node).
 export function PosterCanvas({ data, stageRef }: { data: PosterData; stageRef?: Ref<HTMLDivElement> }) {
@@ -24,7 +33,7 @@ export function PosterCanvas({ data, stageRef }: { data: PosterData; stageRef?: 
   }, []);
 
   const theme = THEMES.find((t) => t.id === data.themeId) ?? THEMES[0];
-  const Template = TEMPLATES[data.template] ?? Blessings;
+  const Template = TEMPLATES[data.template];
 
   return (
     <div ref={boxRef} style={{ position: "relative", width: "100%", aspectRatio: `${STAGE_W} / ${STAGE_H}`, overflow: "hidden" }}>

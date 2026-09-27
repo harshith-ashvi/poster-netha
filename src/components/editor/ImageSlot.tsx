@@ -8,7 +8,17 @@ import { btnCls, Slider } from "./ui";
 
 type Img = Pick<Person, "photo" | "zoom" | "offsetX" | "offsetY">;
 
-export function ImageSlot({ value, label, onChange }: { value: Img; label: string; onChange: (patch: Partial<Img>) => void }) {
+export function ImageSlot({
+  value,
+  label,
+  onChange,
+  adjustable = true,
+}: {
+  value: Img;
+  label: string;
+  onChange: (patch: Partial<Img>) => void;
+  adjustable?: boolean; // false hides zoom/offset sliders (before/after images just cover their panel)
+}) {
   const [error, setError] = useState("");
   const [pending, startTransition] = useTransition();
 
@@ -56,7 +66,7 @@ export function ImageSlot({ value, label, onChange }: { value: Img; label: strin
         )}
       </div>
       {error && <p className="text-sm text-[#b3001b]" role="alert">{error}</p>}
-      {value.photo && (
+      {adjustable && value.photo && (
         <div className="flex flex-col gap-1">
           <Slider label="Zoom" value={value.zoom} min={1} max={3} step={0.05} onChange={(zoom) => onChange({ zoom })} />
           <Slider label="Left/right" value={value.offsetX} min={-50} max={50} step={1} onChange={(offsetX) => onChange({ offsetX })} />

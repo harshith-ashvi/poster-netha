@@ -7,6 +7,7 @@ import { PosterCanvas } from "@/components/poster/PosterCanvas";
 import { SITE_NAME } from "@/lib/config";
 import { emptyPoster, samplePoster } from "@/lib/presets";
 import { posterReducer } from "@/lib/reducer";
+import { BeforeAfterFields } from "./BeforeAfterFields";
 import { ExportBar } from "./ExportBar";
 import { LeaderList } from "./LeaderList";
 import { TemplatePicker } from "./TemplatePicker";
@@ -58,6 +59,9 @@ export function Editor() {
           </Section>
           <Section title={`Leaders (${data.leaders.length}/6)`}>
             <LeaderList data={data} dispatch={dispatch} />
+          </Section>
+          <Section title="Before and after">
+            <BeforeAfterFields data={data} dispatch={dispatch} />
           </Section>
           <Section title="Colours">
             <ThemePicker themeId={data.themeId} dispatch={dispatch} />

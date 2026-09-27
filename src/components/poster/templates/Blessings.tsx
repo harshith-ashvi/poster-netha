@@ -1,10 +1,10 @@
 import { fitFont } from "@/lib/fit";
 import type { PosterData } from "@/lib/types";
 import { GoldFrame } from "../parts/GoldFrame";
-import { LeaderBadge } from "../parts/LeaderBadge";
+import { Footer } from "../parts/Footer";
 import { Photo } from "../parts/Photo";
-import { Ribbon } from "../parts/Ribbon";
-import { Watermark } from "../parts/Watermark";
+import { LeaderRow } from "../parts/LeaderRow";
+import ps from "../parts/parts.module.css";
 import s from "./Blessings.module.css";
 
 const BG =
@@ -19,19 +19,10 @@ export function Blessings({ data }: { data: PosterData }) {
     <GoldFrame background={BG}>
       <div className={s.rays} />
       <div className={s.root}>
-        {leaders.length > 0 && (
-          <div className={s.top}>
-            <Ribbon>{data.blessingsLabel}</Ribbon>
-            <div className={s.leaders}>
-              {leaders.map((p) => (
-                <LeaderBadge key={p.id} person={p} size={leaderSize(leaders.length)} />
-              ))}
-            </div>
-          </div>
-        )}
+        <LeaderRow className={s.top} leaders={leaders} label={data.blessingsLabel} size={leaderSize(leaders.length)} />
 
         <div className={s.band} style={leaders.length === 0 ? { marginTop: 70 } : undefined}>
-          <div className={s.headline} style={{ fontSize: fitFont(data.headline, 108, 60, 24) }}>
+          <div className={ps.goldText} style={{ fontSize: fitFont(data.headline, 108, 60, 24) }}>
             {data.headline}
           </div>
         </div>
@@ -68,10 +59,7 @@ export function Blessings({ data }: { data: PosterData }) {
           </div>
         </div>
 
-        <div className={s.footer}>
-          <span className={s.footerText}>{data.footerText}</span>
-          {data.showWatermark && <Watermark />}
-        </div>
+        <Footer data={data} />
       </div>
     </GoldFrame>
   );

@@ -72,8 +72,9 @@ src/components/
       Achievement.tsx
       Development.tsx
       Infrastructure.tsx
-    parts/                # shared pieces: Garland, Ribbon, LeaderBadge, GoldFrame,
-                          # Confetti, BeforeAfter, Watermark, Photo, Silhouette (inline SVG placeholder)
+    parts/                # shared pieces: GoldFrame, Ribbon, LeaderBadge, LeaderRow, HeroMedallion (fluid),
+                          # Garland, Laurel, BeforeAfter, Footer, Watermark, Photo, Silhouette;
+                          # parts.module.css also holds .goldText (the shared 3D headline)
 src/lib/
   config.ts               # site name, tagline, watermark text
   types.ts                # PosterData, TemplateId, Person, Theme, Lang
@@ -236,7 +237,7 @@ Each phase ends with something runnable. Commit after each one.
 
 **Done when:** downloaded PNG matches the preview exactly, on every browser above.
 
-### Phase 5: Remaining four templates (2 hr)
+### Phase 5: Remaining four templates (2 hr) ✅ Done
 Build `Inauguration`, `Achievement`, `Development`, `Infrastructure` using the shared parts. Add `BeforeAfter` component (image or text-only mode, arrow between panels). Each template must handle: 0 leaders, 6 leaders, missing hero photo, very long text (clamp with `line-clamp` and shrink-to-fit font sizing).
 
 **Done when:** all five templates render correctly with empty, sample, and stress-test data.
