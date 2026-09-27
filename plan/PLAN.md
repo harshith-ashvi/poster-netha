@@ -227,7 +227,7 @@ Each phase ends with something runnable. Commit after each one.
 
 **Done when:** you can upload faces, edit all text, and see the Blessings poster update live.
 
-### Phase 4: Export and share (1 hr)
+### Phase 4: Export and share (1 hr) ✅ Built (Chrome verified; Safari / iOS / Android need a manual check)
 1. `lib/export.ts`: `await document.fonts.ready`, double-`toPng` for Safari, `pixelRatio: 2`, filename from the headline.
 2. `ExportBar`: "Download PNG" button, confetti burst on success.
 3. Web Share API (`navigator.share` with a `File`) on mobile, with fallback to download. Add "Copy image" via `navigator.clipboard.write` where supported.
@@ -322,6 +322,7 @@ For export bugs:
 |---|---|
 | Users upload real politicians' faces | Parody disclaimer, no political templates, no party symbols, no preloaded real photos |
 | Export differs from preview | Fixed stage, export from unscaled node, wait for fonts, double `toPng` |
+| WebKit export drops/misplaces `text-shadow` and offset `box-shadow` (seen in Playwright WebKit, unconfirmed in real Safari) | Test real Safari first. If confirmed: replace offset shadows in templates with layered elements (stacked text copies for the 3D headline, pseudo-element blocks for drop shadows) |
 | Huge photos crash mobile | Downscale on upload to 1200 px, pixelRatio fallback |
 | Scope creep | Phase gates, `BACKLOG.md`, one-day timebox |
 | Copyright of assets | Only self-made SVG/CSS art and Google Fonts |

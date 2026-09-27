@@ -1,12 +1,13 @@
 "use client";
 
-import { useDeferredValue, useReducer } from "react";
+import { useDeferredValue, useReducer, useRef } from "react";
 import Link from "next/link";
 import { ArrowLeft, RotateCcw } from "lucide-react";
 import { PosterCanvas } from "@/components/poster/PosterCanvas";
 import { SITE_NAME } from "@/lib/config";
 import { emptyPoster, samplePoster } from "@/lib/presets";
 import { posterReducer } from "@/lib/reducer";
+import { ExportBar } from "./ExportBar";
 import { LeaderList } from "./LeaderList";
 import { TemplatePicker } from "./TemplatePicker";
 import { HeroFields, TextFields } from "./TextFields";
@@ -17,6 +18,7 @@ export function Editor() {
   const [data, dispatch] = useReducer(posterReducer, undefined, samplePoster);
   // Poster re-renders at lower priority so typing stays snappy.
   const preview = useDeferredValue(data);
+  const stageRef = useRef<HTMLDivElement>(null);
 
   return (
     <div className="mx-auto flex w-full max-w-6xl flex-1 flex-col">
@@ -39,11 +41,12 @@ export function Editor() {
         {/* Mobile: sticky, capped at ~45% of the viewport so the controls stay reachable. */}
         <div className="sticky top-0 z-10 bg-[#fff8e7] px-4 py-3 md:top-4 md:self-start md:px-0 md:py-6">
           <div className="mx-auto w-[min(100%,calc(45svh*0.8))] shadow-[0_12px_30px_rgba(90,40,0,0.25)] md:w-full">
-            <PosterCanvas data={preview} />
+            <PosterCanvas data={preview} stageRef={stageRef} />
           </div>
+          <ExportBar stageRef={stageRef} headline={data.headline} />
         </div>
 
-        <div className="px-4 pb-16 md:px-0 md:py-4">
+        <div className="px-4 pb-32 md:px-0 md:py-4">
           <Section title="Template" open>
             <TemplatePicker template={data.template} themeId={data.themeId} dispatch={dispatch} />
           </Section>
