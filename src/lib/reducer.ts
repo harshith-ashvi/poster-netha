@@ -11,6 +11,9 @@ export type Action =
   | { type: "updateHero"; patch: Partial<Person> }
   | { type: "toggleSticker"; key: keyof Stickers };
 
+export const setField = <K extends keyof PosterData>(key: K, value: PosterData[K]) =>
+  ({ type: "setField", key, value }) as Action;
+
 export function posterReducer(state: PosterData, action: Action): PosterData {
   switch (action.type) {
     case "setField":

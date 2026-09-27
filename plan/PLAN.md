@@ -51,7 +51,7 @@ src/app/
   layout.tsx              # fonts, metadata
   globals.css             # Tailwind v4 import + @theme + theme CSS variables
   page.tsx                # landing + "Make a poster" CTA + example gallery
-  create/page.tsx         # the editor ('use client', owns the useReducer)
+  create/page.tsx         # server wrapper + metadata; renders <Editor /> (client, owns the useReducer)
   opengraph-image.png     # best example poster (Phase 7, file convention)
   icon.svg                # garland favicon (Phase 7, replaces favicon.ico)
 src/components/
@@ -218,8 +218,8 @@ Each phase ends with something runnable. Commit after each one.
 
 **Done when:** a sample poster renders at full quality and scales cleanly in the browser.
 
-### Phase 3: Editor and state (1.5 hr)
-1. Wire `posterReducer` (Section 3 actions) with `useReducer` in `create/page.tsx`.
+### Phase 3: Editor and state (1.5 hr) ✅ Done
+1. Wire `posterReducer` (Section 3 actions) with `useReducer` in `components/editor/Editor.tsx` (client); `create/page.tsx` stays a server component for metadata.
 2. `/create` layout: preview on top (sticky on mobile), controls below; side-by-side on desktop.
 3. Build `TextFields`, `LeaderList`, `ThemePicker`, `TemplatePicker` (tiny thumbnails).
 4. Build `ImageSlot`: file input, preview, zoom slider, X/Y offset sliders, remove button. Use `lib/images.ts` to downscale on upload.

@@ -27,8 +27,9 @@ export function PosterCanvas({ data, stageRef }: { data: PosterData; stageRef?: 
   const Template = TEMPLATES[data.template] ?? Blessings;
 
   return (
-    <div ref={boxRef} style={{ width: "100%", aspectRatio: `${STAGE_W} / ${STAGE_H}`, overflow: "hidden" }}>
-      <div style={{ transform: `scale(${k})`, transformOrigin: "0 0", visibility: k ? "visible" : "hidden" }}>
+    <div ref={boxRef} style={{ position: "relative", width: "100%", aspectRatio: `${STAGE_W} / ${STAGE_H}`, overflow: "hidden" }}>
+      {/* Absolute so the unscaled 1080px layer never widens the layout. */}
+      <div style={{ position: "absolute", top: 0, left: 0, transform: `scale(${k})`, transformOrigin: "0 0", visibility: k ? "visible" : "hidden" }}>
         <div
           ref={stageRef}
           role="img"
