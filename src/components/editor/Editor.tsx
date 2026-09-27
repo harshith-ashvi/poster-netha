@@ -24,8 +24,10 @@ export function Editor() {
   const stageRef = useRef<HTMLDivElement>(null);
 
   return (
-    <div className="mx-auto flex w-full max-w-6xl flex-1 flex-col">
-      <header className="flex items-center justify-between gap-3 border-b border-[#ecdcb4] px-4 py-3">
+    // App shell: exactly one viewport tall, so the page never scrolls. Header and preview stay put;
+    // only the inputs column scrolls.
+    <div className="relative mx-auto flex h-dvh w-full max-w-6xl flex-col overflow-hidden">
+      <header className="flex flex-none items-center justify-between gap-3 border-b border-[#ecdcb4] px-4 py-3">
         <Link href="/" className="inline-flex items-center gap-1.5 font-display text-2xl uppercase text-[#7a0a0a]">
           <ArrowLeft size={20} aria-hidden />
           {SITE_NAME}
@@ -52,16 +54,19 @@ export function Editor() {
         </div>
       </header>
 
-      <div className="flex flex-1 flex-col md:grid md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] md:gap-8 md:px-4">
-        {/* Mobile: sticky, capped at ~45% of the viewport so the controls stay reachable. */}
-        <div className="sticky top-0 z-10 bg-[#fff8e7] px-4 py-3 md:top-4 md:self-start md:px-0 md:py-6">
-          <div className="mx-auto w-[min(100%,calc(45svh*0.8))] shadow-[0_12px_30px_rgba(90,40,0,0.25)] md:w-full">
-            <PosterCanvas data={preview} stageRef={stageRef} />
+      <div className="flex min-h-0 flex-1 flex-col md:grid md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] md:grid-rows-[minmax(0,1fr)] md:gap-8 md:px-4">
+        {/* Preview: fixed in place. Mobile gets ~45% of the screen so the inputs stay reachable. */}
+        <div className="flex h-[45svh] flex-none flex-col px-4 py-3 md:h-auto md:min-h-0 md:px-0 md:py-6">
+          {/* Size container: the poster takes the largest 4:5 box that fits both width and height. */}
+          <div className="flex min-h-0 flex-1 justify-center [container-type:size]">
+            <div className="w-[min(100cqw,calc(100cqh*0.8))] self-start shadow-[0_12px_30px_rgba(90,40,0,0.25)]">
+              <PosterCanvas data={preview} stageRef={stageRef} />
+            </div>
           </div>
           <ExportBar stageRef={stageRef} headline={data.headline} />
         </div>
 
-        <div className="px-4 pb-32 md:px-0 md:py-4">
+        <div className="relative min-h-0 flex-1 overflow-y-auto overscroll-contain px-4 pb-32 md:px-0 md:py-4 md:pr-2 md:pb-8">
           <Section title="Template" open>
             <TemplatePicker template={data.template} themeId={data.themeId} dispatch={dispatch} />
           </Section>
