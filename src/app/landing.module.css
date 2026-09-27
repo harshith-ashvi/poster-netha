@@ -1,0 +1,64 @@
+/* Poster sizes are set with --poster-k (scale of the 1080px stage) per breakpoint, so thumbnails
+   render from plain HTML with no JS measuring. */
+
+.fan {
+  --poster-k: 0.2;
+  position: relative;
+  height: calc(var(--poster-k) * 1350px + 40px);
+  display: flex;
+  justify-content: center;
+}
+.fanItem {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  box-shadow: 0 14px 30px rgba(90, 30, 0, 0.35);
+  transform: translateX(-50%);
+}
+.fanItem:nth-child(1) {
+  transform: translateX(calc(-50% - 44%)) rotate(-9deg);
+}
+.fanItem:nth-child(3) {
+  transform: translateX(calc(-50% + 44%)) rotate(8deg);
+}
+.fanItem:nth-child(2) {
+  z-index: 1;
+  top: 0;
+}
+
+.gallery {
+  --poster-k: 0.15;
+  display: grid;
+  grid-template-columns: repeat(2, max-content);
+  justify-content: center;
+  gap: 16px 12px;
+  margin-top: 32px;
+}
+.galleryItem {
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
+}
+
+@media (min-width: 640px) {
+  .gallery {
+    --poster-k: 0.25;
+    gap: 24px;
+  }
+  .fan {
+    --poster-k: 0.26;
+  }
+}
+@media (min-width: 900px) {
+  .gallery {
+    --poster-k: 0.22;
+    grid-template-columns: repeat(3, max-content);
+  }
+  .fan {
+    --poster-k: 0.3;
+  }
+}
+@media (min-width: 1100px) {
+  .gallery {
+    --poster-k: 0.3;
+    gap: 28px;
+  }
+}

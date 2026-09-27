@@ -52,7 +52,7 @@ src/app/
   globals.css             # Tailwind v4 import + @theme + theme CSS variables
   page.tsx                # landing + "Make a poster" CTA + example gallery
   create/page.tsx         # server wrapper + metadata; renders <Editor /> (client, owns the useReducer)
-  opengraph-image.png     # best example poster (Phase 7, file convention)
+  opengraph-image.jpg     # best example poster (Phase 7, file convention)
   icon.svg                # garland favicon (Phase 7, replaces favicon.ico)
 src/components/
   editor/
@@ -248,10 +248,10 @@ Build `Inauguration`, `Achievement`, `Development`, `Infrastructure` using the s
 3. Optional **background removal** toggle per photo (lazy import of `@imgly/background-removal`, show a progress state, warn about the first-time model download). If it slows things down, cut it and put it in the backlog.
 4. Sticker extras (toggles): garlands, flower shower, "Congratulations" strip, giant scrolling ticker text at the bottom.
 
-### Phase 7: Landing page, polish, safety (1 hr)
+### Phase 7: Landing page, polish, safety (1 hr) ✅ Done
 1. Landing page: one-liner ("Celebrate anything like an Indian politician"), an example gallery of 4 to 6 pre-made posters (using placeholders), big CTA.
 2. Footer note: "Parody. Not affiliated with any political party. Photos never leave your device."
-3. Metadata: title, description, `metadataBase`, OG image via `src/app/opengraph-image.png` (one of the best example posters), favicon via `src/app/icon.svg` (garland emoji in an SVG; delete `favicon.ico`).
+3. Metadata: title, description, `metadataBase`, OG image via `src/app/opengraph-image.jpg` (one of the best example posters), favicon via `src/app/icon.svg` (garland emoji in an SVG; delete `favicon.ico`).
 4. Mobile pass: everything usable one-handed at 375 px width.
 5. Watermark: small "made with {SITE_NAME}" on posters, with a toggle to hide it (default on).
 

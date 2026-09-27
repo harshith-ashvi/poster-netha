@@ -22,24 +22,27 @@ const TEMPLATES: Record<TemplateId, typeof Blessings> = {
 };
 
 // Fixed 1080x1350 stage scaled to fit its container. Export from `stageRef` (the unscaled node).
-export function PosterCanvas({ data, stageRef }: { data: PosterData; stageRef?: Ref<HTMLDivElement> }) {
+// `cssScale`: size comes from the `--poster-k` CSS variable instead of measuring, so static
+// thumbnails (landing gallery) render straight from HTML with no JS.
+export function PosterCanvas({ data, stageRef, cssScale }: { data: PosterData; stageRef?: Ref<HTMLDivElement>; cssScale?: boolean }) {
   const boxRef = useRef<HTMLDivElement>(null);
   const [k, setK] = useState(0);
 
   useLayoutEffect(() => {
+    if (cssScale) return;
     const box = boxRef.current!;
     const ro = new ResizeObserver(([e]) => setK(e.contentRect.width / STAGE_W));
     ro.observe(box);
     return () => ro.disconnect();
-  }, []);
+  }, [cssScale]);
 
   const theme = THEMES.find((t) => t.id === data.themeId) ?? THEMES[0];
   const Template = TEMPLATES[data.template];
 
   return (
-    <div ref={boxRef} style={{ position: "relative", width: "100%", aspectRatio: `${STAGE_W} / ${STAGE_H}`, overflow: "hidden" }}>
+    <div ref={boxRef} style={{ position: "relative", width: cssScale ? `calc(var(--poster-k) * ${STAGE_W}px)` : "100%", aspectRatio: `${STAGE_W} / ${STAGE_H}`, overflow: "hidden" }}>
       {/* Absolute so the unscaled 1080px layer never widens the layout. */}
-      <div style={{ position: "absolute", top: 0, left: 0, transform: `scale(${k})`, transformOrigin: "0 0", visibility: k ? "visible" : "hidden" }}>
+      <div style={{ position: "absolute", top: 0, left: 0, transform: cssScale ? "scale(var(--poster-k))" : `scale(${k})`, transformOrigin: "0 0", visibility: cssScale || k ? "visible" : "hidden" }}>
         <div
           ref={stageRef}
           role="img"

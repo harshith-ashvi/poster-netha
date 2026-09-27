@@ -9,7 +9,7 @@ import {
   Rozha_One,
   Teko,
 } from "next/font/google";
-import { DESCRIPTION, SITE_NAME, TAGLINE } from "@/lib/config";
+import { DESCRIPTION, SITE_NAME, SITE_URL, TAGLINE } from "@/lib/config";
 import "./globals.css";
 
 const anton = Anton({ weight: "400", subsets: ["latin"], variable: "--font-anton" });
@@ -27,8 +27,11 @@ const fontVars = [anton, teko, rozha, poppins, devanagari, tamil, telugu, kannad
   .join(" ");
 
 export const metadata: Metadata = {
-  title: `${SITE_NAME}: ${TAGLINE}`,
+  metadataBase: new URL(SITE_URL),
+  title: { default: `${SITE_NAME}: ${TAGLINE}`, template: `%s · ${SITE_NAME}` },
   description: DESCRIPTION,
+  openGraph: { siteName: SITE_NAME, type: "website", title: `${SITE_NAME}: ${TAGLINE}`, description: DESCRIPTION },
+  twitter: { card: "summary_large_image", title: `${SITE_NAME}: ${TAGLINE}`, description: DESCRIPTION },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

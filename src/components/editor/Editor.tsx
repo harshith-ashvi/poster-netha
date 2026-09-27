@@ -4,7 +4,7 @@ import { useDeferredValue, useReducer, useRef } from "react";
 import Link from "next/link";
 import { ArrowLeft, RotateCcw, Sparkles } from "lucide-react";
 import { PosterCanvas } from "@/components/poster/PosterCanvas";
-import { SITE_NAME } from "@/lib/config";
+import { DISCLAIMER, SITE_NAME } from "@/lib/config";
 import { emptyPoster, samplePoster } from "@/lib/presets";
 import { posterReducer } from "@/lib/reducer";
 import { BeforeAfterFields } from "./BeforeAfterFields";
@@ -84,7 +84,7 @@ export function Editor() {
           <Section title="Stickers">
             <StickerToggles stickers={data.stickers} dispatch={dispatch} />
           </Section>
-          <p className="pt-4 text-xs text-[#7a6440]">Photos stay on your device. Nothing is uploaded.</p>
+          <p className="pt-4 text-xs text-[#7a6440]">{DISCLAIMER}</p>
         </div>
       </div>
     </div>
