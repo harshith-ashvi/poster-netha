@@ -30,7 +30,7 @@ Success metric: someone sees a generated poster and immediately sends it to a fr
 |---|---|
 | Framework | Next.js 16 (App Router, `src/`), React 19, TypeScript |
 | Package manager | bun |
-| Styling | Tailwind CSS v4 for the editor UI; plain CSS/inline styles inside poster templates |
+| Styling | Tailwind CSS v4 everywhere (no CSS modules). Long or shared poster styles are `@utility` classes in `globals.css` (`gold-text`, `bg-gold-conic`, `bg-gold-sheen`, `bg-marigolds`, `clip-starburst`). Poster classes use arbitrary px (`p-[18px]`), never the rem spacing scale, so the fixed stage ignores browser font size. Inline `style` only for runtime values (font sizes from `fitFont`, theme vars). |
 | State | `useReducer` in the `/create` page, single `PosterData` object, passed down as props (no Zustand, no context unless prop drilling gets painful) |
 | Export | `html-to-image` (`toPng`) |
 | Fonts | `next/font/google`, each exposed as a CSS variable: Anton, Teko, Rozha One, Poppins, Noto Sans Devanagari (hi), Noto Sans Tamil (ta), Noto Sans Telugu (te), Noto Sans Kannada (kn) |
@@ -74,7 +74,6 @@ src/components/
       Infrastructure.tsx
     parts/                # shared pieces: GoldFrame, Ribbon, LeaderBadge, LeaderRow, HeroMedallion (fluid),
                           # Garland, Laurel, BeforeAfter, Footer, Watermark, Photo, Silhouette;
-                          # parts.module.css also holds .goldText (the shared 3D headline)
 src/lib/
   config.ts               # site name, tagline, watermark text
   types.ts                # PosterData, TemplateId, Person, Theme, Lang

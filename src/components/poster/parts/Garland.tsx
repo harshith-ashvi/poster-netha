@@ -1,6 +1,3 @@
-import type { CSSProperties } from "react";
-import s from "./parts.module.css";
-
-export function Garland({ style }: { style?: CSSProperties }) {
-  return <div className={s.garland} style={style} aria-hidden />;
+export function Garland({ className = "" }: { className?: string }) {
+  return <div className={`w-[46px] bg-marigolds ${className}`} aria-hidden />;
 }

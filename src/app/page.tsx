@@ -2,10 +2,17 @@ import Link from "next/link";
 import { PosterCanvas } from "@/components/poster/PosterCanvas";
 import { DISCLAIMER, SITE_NAME } from "@/lib/config";
 import { EXAMPLES } from "@/lib/examples";
-import s from "./landing.module.css";
 
 // Hero fan: three posters pasted up like flex banners on a wall.
 const FAN = [EXAMPLES[2], EXAMPLES[0], EXAMPLES[1]];
+
+// Poster sizes come from --poster-k (scale of the 1080px stage) per breakpoint, so these
+// thumbnails render from plain HTML with no JS measuring.
+const FAN_ITEM = [
+  "top-[20px] -translate-x-[calc(50%+44%)] -rotate-9",
+  "top-0 z-1 -translate-x-1/2",
+  "top-[20px] translate-x-[calc(-50%+44%)] rotate-8",
+];
 
 export default function Home() {
   return (
@@ -33,9 +40,12 @@ export default function Home() {
             <p className="text-sm text-[#7a6440]">Free. No sign-up. Photos never leave your device.</p>
           </div>
 
-          <div className={s.fan} aria-hidden>
+          <div
+            className="relative flex h-[calc(var(--poster-k)*1350px+40px)] justify-center [--poster-k:0.2] sm:[--poster-k:0.26] min-[56.25rem]:[--poster-k:0.3]"
+            aria-hidden
+          >
             {FAN.map((d, i) => (
-              <div key={i} className={s.fanItem}>
+              <div key={i} className={`absolute left-1/2 shadow-[0_14px_30px_rgba(90,30,0,0.35)] ${FAN_ITEM[i]}`}>
                 <PosterCanvas data={d} cssScale />
               </div>
             ))}
@@ -50,9 +60,9 @@ export default function Home() {
             <p className="mt-3 max-w-[60ch] text-[#f3dcae]">
               Five templates, five languages, and absolutely no sense of proportion.
             </p>
-            <ul className={s.gallery}>
+            <ul className="mt-8 grid grid-cols-[repeat(2,max-content)] justify-center gap-x-3 gap-y-4 [--poster-k:0.15] sm:gap-6 sm:[--poster-k:0.25] min-[56.25rem]:grid-cols-[repeat(3,max-content)] min-[56.25rem]:[--poster-k:0.22] min-[68.75rem]:gap-7 min-[68.75rem]:[--poster-k:0.3]">
               {EXAMPLES.map((d, i) => (
-                <li key={i} className={s.galleryItem}>
+                <li key={i} className="shadow-[0_10px_24px_rgba(0,0,0,0.35)]">
                   <PosterCanvas data={d} cssScale />
                 </li>
               ))}

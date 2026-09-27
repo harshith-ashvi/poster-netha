@@ -18,3 +18,9 @@ Build phase by phase per `plan/PLAN.md`. Package manager: **bun**. App code in `
 - Before export: `await document.fonts.ready`. Call `toPng` twice, keep the second (Safari). `pixelRatio: 2`, fall back to 1 on memory errors.
 - Downscale uploads to max 1200 px long edge.
 - `posterReducer` stays pure: UUIDs/random copy are created by the caller and passed in via actions.
+
+## Styling
+- Tailwind only, no CSS modules. Long or shared poster styles are `@utility` classes in `src/app/globals.css` (`gold-text` is the shared 3D headline).
+- Inside posters use arbitrary px (`p-[18px]`, `text-[38px]`), never the rem spacing scale: the 1080x1350 stage must not change with the viewer's browser font size.
+- Arbitrary breakpoints must be in rem (`min-[56.25rem]:`), or Tailwind can't order them against `sm`/`md`.
+- Runtime-computed values (font sizes from `fitFont`, poster scale) stay in inline `style`; Tailwind only sees class names written out in full.

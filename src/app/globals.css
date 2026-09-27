@@ -8,6 +8,61 @@
   --font-serif: var(--font-rozha), var(--font-hi), serif;
 }
 
+@theme {
+  --animate-ticker: ticker 18s linear infinite;
+  @keyframes ticker {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+}
+
+/* ---------- Poster utilities ----------
+   Only for styles that are long or reused across templates; everything else is inline Tailwind.
+   Poster classes use px (not the rem spacing scale) so the fixed 1080x1350 stage never changes
+   with the viewer's browser font size. */
+
+/* Shared 3D gold headline: the one place to change if Safari needs a shadow workaround. */
+@utility gold-text {
+  font-family: var(--font-anton), var(--font-hi), var(--font-ta), var(--font-te), var(--font-kn), sans-serif;
+  line-height: 1;
+  text-transform: uppercase;
+  color: #ffe27a;
+  -webkit-text-stroke: 3px #3b0a00;
+  paint-order: stroke fill;
+  text-shadow:
+    0 3px 0 #e0a100,
+    0 6px 0 #b06a00,
+    0 9px 0 #7a4200,
+    0 12px 0 #4a2400,
+    0 20px 26px rgba(0, 0, 0, 0.5);
+  overflow-wrap: anywhere;
+}
+
+/* Polished gold for rings, medallions and the before/after arrow. */
+@utility bg-gold-conic {
+  background: conic-gradient(#ffe27a, #b8860b, #fff6c4, #a86f00, #ffe27a);
+}
+
+/* The thick bevelled frame around every poster. */
+@utility bg-gold-sheen {
+  background: linear-gradient(135deg, #7a4a00, #ffe27a 18%, #b8860b 36%, #fff6c4 52%, #a86f00 70%, #ffd54a 86%, #7a4a00);
+}
+
+/* A vertical string of marigolds. */
+@utility bg-marigolds {
+  background: radial-gradient(circle, #fff1a8 0 14%, #ffc21a 16% 40%, #ff8a00 42% 56%, transparent 58%) center top / 46px
+    38px repeat-y;
+}
+
+/* Starburst sticker shape ("WELL DONE!"). */
+@utility clip-starburst {
+  clip-path: polygon(
+    50% 0%, 61% 15%, 79% 9%, 80% 27%, 97% 32%, 88% 48%, 99% 63%, 82% 70%, 82% 89%, 64% 85%,
+    50% 100%, 38% 85%, 19% 90%, 18% 71%, 1% 64%, 12% 49%, 2% 33%, 20% 27%, 21% 9%, 38% 15%
+  );
+}
+
 body {
   background: #fff8e7;
   color: #1a1a1a;
