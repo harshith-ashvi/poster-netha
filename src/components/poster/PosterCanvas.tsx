@@ -2,6 +2,7 @@
 
 import { useLayoutEffect, useRef, useState, type CSSProperties, type Ref } from "react";
 import { THEMES } from "@/lib/presets";
+import { Stickers } from "./parts/Stickers";
 import type { PosterData, TemplateId } from "@/lib/types";
 import { Achievement } from "./templates/Achievement";
 import { Blessings } from "./templates/Blessings";
@@ -42,10 +43,12 @@ export function PosterCanvas({ data, stageRef }: { data: PosterData; stageRef?: 
         <div
           ref={stageRef}
           role="img"
+          lang={data.lang}
           aria-label={data.headline}
           style={{ ...(theme.vars as CSSProperties), position: "relative", width: STAGE_W, height: STAGE_H, overflow: "hidden" }}
         >
           <Template data={data} />
+          <Stickers data={data} />
         </div>
       </div>
     </div>

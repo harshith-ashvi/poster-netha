@@ -1,11 +1,11 @@
 import type { Lang, Person, PosterData, TemplateId, Theme } from "./types";
 
-export const TEMPLATES: { id: TemplateId; name: string; headline: string }[] = [
-  { id: "blessings", name: "Blessings", headline: "GRAND CELEBRATION" },
-  { id: "inauguration", name: "Inauguration", headline: "HISTORIC INAUGURATION" },
-  { id: "achievement", name: "Achievement", headline: "A GREAT ACHIEVEMENT FOR THE COMMUNITY" },
-  { id: "development", name: "Development", headline: "HISTORIC DEVELOPMENT" },
-  { id: "infrastructure", name: "Infrastructure", headline: "PROJECT COMPLETED" },
+export const TEMPLATES: { id: TemplateId; name: string }[] = [
+  { id: "blessings", name: "Blessings" },
+  { id: "inauguration", name: "Inauguration" },
+  { id: "achievement", name: "Achievement" },
+  { id: "development", name: "Development" },
+  { id: "infrastructure", name: "Infrastructure" },
 ];
 
 // --bg-from/--bg-to: background gradient, --accent: gold/trim, --text: main text, --plate: name plates
@@ -37,10 +37,13 @@ export const THEMES: Theme[] = [
   },
 ];
 
-type Copy = { headlines: string[]; blessingsLabels: string[] };
+type Copy = { name: string; headlines: string[]; blessingsLabels: string[]; congrats: string; breaking: string };
 
 export const COPY: Record<Lang, Copy> = {
   en: {
+    name: "English",
+    congrats: "CONGRATULATIONS",
+    breaking: "BREAKING",
     headlines: [
       "HISTORIC DEVELOPMENT",
       "A GREAT ACHIEVEMENT FOR THE COMMUNITY",
@@ -56,18 +59,30 @@ export const COPY: Record<Lang, Copy> = {
     ],
   },
   hi: {
+    name: "हिन्दी",
+    congrats: "हार्दिक बधाई",
+    breaking: "ताज़ा ख़बर",
     headlines: ["ऐतिहासिक विकास", "समाज के लिए एक महान उपलब्धि", "भव्य उद्घाटन", "सफलतापूर्वक संपन्न", "राष्ट्र के लिए गौरव का क्षण"],
     blessingsLabels: ["के आशीर्वाद से", "के दूरदर्शी नेतृत्व में", "के मार्गदर्शन में", "से प्रेरित"],
   },
   ta: {
+    name: "தமிழ்",
+    congrats: "வாழ்த்துக்கள்",
+    breaking: "முக்கிய செய்தி",
     headlines: ["வரலாற்று வளர்ச்சி", "சமூகத்திற்கு ஒரு மாபெரும் சாதனை", "பிரம்மாண்ட திறப்பு விழா", "வெற்றிகரமாக நிறைவு", "தேசத்திற்கு பெருமையான தருணம்"],
     blessingsLabels: ["ஆசியுடன்", "தொலைநோக்கு தலைமையில்", "வழிகாட்டுதலுடன்", "ஈர்க்கப்பட்டு"],
   },
   te: {
+    name: "తెలుగు",
+    congrats: "అభినందనలు",
+    breaking: "తాజా వార్త",
     headlines: ["చారిత్రాత్మక అభివృద్ధి", "సమాజానికి గొప్ప విజయం", "ఘన ప్రారంభోత్సవం", "విజయవంతంగా పూర్తయింది", "దేశానికి గర్వకారణమైన క్షణం"],
     blessingsLabels: ["ఆశీస్సులతో", "దార్శనిక నాయకత్వంలో", "మార్గదర్శకత్వంలో", "స్ఫూర్తితో"],
   },
   kn: {
+    name: "ಕನ್ನಡ",
+    congrats: "ಅಭಿನಂದನೆಗಳು",
+    breaking: "ತಾಜಾ ಸುದ್ದಿ",
     headlines: ["ಐತಿಹಾಸಿಕ ಅಭಿವೃದ್ಧಿ", "ಸಮುದಾಯಕ್ಕೆ ಮಹಾನ್ ಸಾಧನೆ", "ಭವ್ಯ ಉದ್ಘಾಟನೆ", "ಯಶಸ್ವಿಯಾಗಿ ಪೂರ್ಣಗೊಂಡಿದೆ", "ರಾಷ್ಟ್ರಕ್ಕೆ ಹೆಮ್ಮೆಯ ಕ್ಷಣ"],
     blessingsLabels: ["ಆಶೀರ್ವಾದದೊಂದಿಗೆ", "ದೂರದೃಷ್ಟಿಯ ನಾಯಕತ್ವದಲ್ಲಿ", "ಮಾರ್ಗದರ್ಶನದಲ್ಲಿ", "ಸ್ಫೂರ್ತಿಯಿಂದ"],
   },
@@ -102,7 +117,7 @@ export function emptyPoster(): PosterData {
     template: "blessings",
     lang: "en",
     themeId: THEMES[0].id,
-    headline: TEMPLATES[0].headline,
+    headline: COPY.en.headlines[0],
     achievement: "",
     bigNumber: "",
     blessingsLabel: COPY.en.blessingsLabels[0],
@@ -134,4 +149,16 @@ export function samplePoster(): PosterData {
     beforeLabel: "#000",
     afterLabel: "#F59E0B",
   };
+}
+
+// Switching language swaps preset copy to the same slot in the new language, but never overwrites text the user typed.
+export function copyForLang(data: PosterData, lang: Lang): Partial<PosterData> {
+  const swap = (value: string, key: "headlines" | "blessingsLabels") => {
+    for (const l of Object.keys(COPY) as Lang[]) {
+      const i = COPY[l][key].indexOf(value);
+      if (i !== -1) return COPY[lang][key][i];
+    }
+    return value;
+  };
+  return { lang, headline: swap(data.headline, "headlines"), blessingsLabel: swap(data.blessingsLabel, "blessingsLabels") };
 }

@@ -255,3 +255,99 @@
   transform: translateX(-50%);
   max-width: 125%;
 }
+
+/* ---------- Stickers overlay ---------- */
+.stickers {
+  position: absolute;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+}
+.toran {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.petals {
+  position: absolute;
+  inset: 0;
+}
+/* Corner sash across the top-right corner */
+.sash {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 400px;
+  height: 400px;
+  overflow: hidden;
+}
+.sashBand {
+  position: absolute;
+  top: 104px;
+  right: -150px;
+  width: 620px;
+  padding: 8px 0 6px;
+  transform: rotate(45deg);
+  background: linear-gradient(180deg, color-mix(in srgb, var(--plate) 80%, white), var(--plate) 50%, color-mix(in srgb, var(--plate) 70%, black));
+  border-top: 5px solid var(--accent);
+  border-bottom: 5px solid var(--accent);
+  font-family: var(--font-anton), var(--font-hi), var(--font-ta), var(--font-te), var(--font-kn), sans-serif;
+  font-size: 36px;
+  line-height: 1.1;
+  color: #ffe27a;
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* ---------- Ticker (inside Footer) ---------- */
+.ticker {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: stretch;
+  height: 64px;
+  background: #fff6d6;
+  border-top: 5px solid var(--plate);
+  overflow: hidden;
+}
+.tickerTag {
+  flex: none;
+  display: flex;
+  align-items: center;
+  padding: 4px 22px 0;
+  background: var(--plate);
+  font-family: var(--font-teko), var(--font-hi), var(--font-ta), var(--font-te), var(--font-kn), sans-serif;
+  font-size: 40px;
+  color: #ffe27a;
+  text-transform: uppercase;
+}
+.tickerTrack {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+.tickerMove {
+  display: flex;
+  flex: none;
+  white-space: nowrap;
+  font-family: var(--font-anton), var(--font-hi), var(--font-ta), var(--font-te), var(--font-kn), sans-serif;
+  font-size: 40px;
+  color: #3b0a00;
+  text-transform: uppercase;
+  animation: ticker 18s linear infinite;
+}
+.tickerMove > span {
+  padding-right: 40px;
+}
+@keyframes ticker {
+  to {
+    transform: translateX(-50%);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tickerMove {
+    animation: none;
+  }
+}

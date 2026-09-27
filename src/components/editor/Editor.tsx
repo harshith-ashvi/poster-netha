@@ -2,14 +2,16 @@
 
 import { useDeferredValue, useReducer, useRef } from "react";
 import Link from "next/link";
-import { ArrowLeft, RotateCcw } from "lucide-react";
+import { ArrowLeft, RotateCcw, Sparkles } from "lucide-react";
 import { PosterCanvas } from "@/components/poster/PosterCanvas";
 import { SITE_NAME } from "@/lib/config";
 import { emptyPoster, samplePoster } from "@/lib/presets";
 import { posterReducer } from "@/lib/reducer";
 import { BeforeAfterFields } from "./BeforeAfterFields";
+import { CopyTools } from "./CopyTools";
 import { ExportBar } from "./ExportBar";
 import { LeaderList } from "./LeaderList";
+import { StickerToggles } from "./StickerToggles";
 import { TemplatePicker } from "./TemplatePicker";
 import { HeroFields, TextFields } from "./TextFields";
 import { ThemePicker } from "./ThemePicker";
@@ -28,14 +30,26 @@ export function Editor() {
           <ArrowLeft size={20} aria-hidden />
           {SITE_NAME}
         </Link>
-        <button
-          type="button"
-          className={btnCls}
-          onClick={() => confirm("Clear everything and start from a blank poster?") && dispatch({ type: "merge", patch: emptyPoster() })}
-        >
-          <RotateCcw size={16} aria-hidden />
-          Start over
-        </button>
+        <div className="flex gap-2">
+          <button
+            type="button"
+            className={btnCls}
+            aria-label="Load sample"
+            onClick={() => confirm("Replace everything with the sample poster?") && dispatch({ type: "merge", patch: samplePoster() })}
+          >
+            <Sparkles size={16} aria-hidden />
+            <span className="hidden sm:inline">Load sample</span>
+          </button>
+          <button
+            type="button"
+            className={btnCls}
+            aria-label="Start over"
+            onClick={() => confirm("Clear everything and start from a blank poster?") && dispatch({ type: "merge", patch: emptyPoster() })}
+          >
+            <RotateCcw size={16} aria-hidden />
+            <span className="hidden sm:inline">Start over</span>
+          </button>
+        </div>
       </header>
 
       <div className="flex flex-1 flex-col md:grid md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] md:gap-8 md:px-4">
@@ -52,6 +66,7 @@ export function Editor() {
             <TemplatePicker template={data.template} themeId={data.themeId} dispatch={dispatch} />
           </Section>
           <Section title="Words" open>
+            <CopyTools data={data} dispatch={dispatch} />
             <TextFields data={data} dispatch={dispatch} />
           </Section>
           <Section title="You, the hero">
@@ -65,6 +80,9 @@ export function Editor() {
           </Section>
           <Section title="Colours">
             <ThemePicker themeId={data.themeId} dispatch={dispatch} />
+          </Section>
+          <Section title="Stickers">
+            <StickerToggles stickers={data.stickers} dispatch={dispatch} />
           </Section>
           <p className="pt-4 text-xs text-[#7a6440]">Photos stay on your device. Nothing is uploaded.</p>
         </div>

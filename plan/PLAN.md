@@ -36,7 +36,7 @@ Success metric: someone sees a generated poster and immediately sends it to a fr
 | Fonts | `next/font/google`, each exposed as a CSS variable: Anton, Teko, Rozha One, Poppins, Noto Sans Devanagari (hi), Noto Sans Tamil (ta), Noto Sans Telugu (te), Noto Sans Kannada (kn) |
 | Image upload | `<input type=file>` → downscale via canvas → data URL (data URLs, not blob URLs, so `html-to-image` embeds them reliably) |
 | Images in UI | Plain `<img>`, not `next/image` (default loader is unsupported with static export, and posters must use data URLs anyway) |
-| Optional cutout | `@imgly/background-removal`, lazy-loaded, behind a toggle (Phase 6, cuttable) |
+| Optional cutout | Cut from V1 (AGPL license, ~40MB model). See BACKLOG.md |
 | Confetti UI | `canvas-confetti` (on export) |
 | Hosting | Vercel, `output: 'export'` in `next.config.ts` |
 
@@ -242,7 +242,7 @@ Build `Inauguration`, `Achievement`, `Development`, `Infrastructure` using the s
 
 **Done when:** all five templates render correctly with empty, sample, and stress-test data.
 
-### Phase 6: Comedy features (1 hr)
+### Phase 6: Comedy features (1 hr) ✅ Done (background removal cut to BACKLOG.md: AGPL + ~40MB model)
 1. "Randomize copy" and "Load sample" buttons.
 2. Language toggle for headline and blessings label (Hindi, Tamil, Telugu, Kannada). Users still type their own achievement text in any language; Noto fonts cover the scripts.
 3. Optional **background removal** toggle per photo (lazy import of `@imgly/background-removal`, show a progress state, warn about the first-time model download). If it slows things down, cut it and put it in the backlog.
