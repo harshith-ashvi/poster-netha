@@ -1,4 +1,5 @@
 import type { ActionDispatch } from "react";
+import { templateInfo } from "@/lib/presets";
 import { setField, type Action } from "@/lib/reducer";
 import type { PosterData } from "@/lib/types";
 import { ImageSlot } from "./ImageSlot";
@@ -20,14 +21,16 @@ export function TextFields({ data, dispatch }: Props) {
           onChange={(e) => dispatch(setField("achievement", e.target.value))}
         />
       </Field>
-      <Field label="Big number" hint="Shown on the Achievement and Infrastructure templates.">
-        <input
-          className={inputCls}
-          value={data.bigNumber}
-          placeholder="1 DOWNLOAD"
-          onChange={(e) => dispatch(setField("bigNumber", e.target.value))}
-        />
-      </Field>
+      {templateInfo(data.template).bigNumber && (
+        <Field label="Big number" hint="The giant text, like 1 DOWNLOAD or 30 DAYS.">
+          <input
+            className={inputCls}
+            value={data.bigNumber}
+            placeholder="1 DOWNLOAD"
+            onChange={(e) => dispatch(setField("bigNumber", e.target.value))}
+          />
+        </Field>
+      )}
       <Field label="Footer">
         <input className={inputCls} value={data.footerText} onChange={(e) => dispatch(setField("footerText", e.target.value))} />
       </Field>

@@ -10,3 +10,8 @@ export const DISCLAIMER = "Parody. Not affiliated with any political party. Phot
 export const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL ??
   (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : "http://localhost:3000");
+
+export const SOCIAL = {
+  x: "https://x.com/HarshithAshvi",
+  instagram: "https://www.instagram.com/astroashvi.mp4/",
+};

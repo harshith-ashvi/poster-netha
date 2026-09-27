@@ -5,7 +5,7 @@ import Link from "next/link";
 import { ArrowLeft, RotateCcw, Sparkles } from "lucide-react";
 import { PosterCanvas } from "@/components/poster/PosterCanvas";
 import { DISCLAIMER, SITE_NAME } from "@/lib/config";
-import { emptyPoster, samplePoster } from "@/lib/presets";
+import { emptyPoster, samplePoster, templateInfo } from "@/lib/presets";
 import { posterReducer } from "@/lib/reducer";
 import { BeforeAfterFields } from "./BeforeAfterFields";
 import { CopyTools } from "./CopyTools";
@@ -80,9 +80,11 @@ export function Editor() {
           <Section title={`Leaders (${data.leaders.length}/6)`}>
             <LeaderList data={data} dispatch={dispatch} />
           </Section>
-          <Section title="Before and after">
-            <BeforeAfterFields data={data} dispatch={dispatch} />
-          </Section>
+          {templateInfo(data.template).beforeAfter && (
+            <Section title="Before and after">
+              <BeforeAfterFields data={data} dispatch={dispatch} />
+            </Section>
+          )}
           <Section title="Colours">
             <ThemePicker themeId={data.themeId} dispatch={dispatch} />
           </Section>

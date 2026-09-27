@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { PosterCanvas } from "@/components/poster/PosterCanvas";
-import { DISCLAIMER, SITE_NAME } from "@/lib/config";
+import { DISCLAIMER, SITE_NAME, SOCIAL } from "@/lib/config";
 import { EXAMPLES } from "@/lib/examples";
 
 // Hero fan: three posters pasted up like flex banners on a wall.
@@ -14,11 +14,41 @@ const FAN_ITEM = [
   "top-[20px] translate-x-[calc(-50%+44%)] rotate-8",
 ];
 
+const socialCls =
+  "grid size-10 place-items-center rounded-full text-[#7a0a0a] hover:bg-[#f7e3b5] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#b3001b]";
+
+// Brand marks as inline SVG (lucide no longer ships brand icons).
+function XLogo() {
+  return (
+    <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden>
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+    </svg>
+  );
+}
+
+function InstagramLogo() {
+  return (
+    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
+      <rect x="2.5" y="2.5" width="19" height="19" rx="5.5" />
+      <circle cx="12" cy="12" r="4.25" />
+      <circle cx="17.5" cy="6.5" r="1.1" fill="currentColor" stroke="none" />
+    </svg>
+  );
+}
+
 export default function Home() {
   return (
     <div className="flex flex-1 flex-col">
-      <header className="mx-auto w-full max-w-6xl px-4 py-4">
+      <header className="mx-auto flex w-full max-w-6xl items-center justify-between px-4 py-4">
         <span className="font-display text-2xl uppercase text-[#7a0a0a]">{SITE_NAME}</span>
+        <nav className="flex items-center gap-1" aria-label="Social">
+          <a href={SOCIAL.x} target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)" className={socialCls}>
+            <XLogo />
+          </a>
+          <a href={SOCIAL.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram" className={socialCls}>
+            <InstagramLogo />
+          </a>
+        </nav>
       </header>
 
       <main className="flex-1 overflow-x-clip">

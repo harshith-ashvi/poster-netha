@@ -10,8 +10,7 @@ export function BeforeAfterFields({ data, dispatch }: { data: PosterData; dispat
   return (
     <>
       <p className="text-xs text-[#7a6440]">
-        Shown on the Development and Infrastructure templates. No photo? The label fills the panel, and a hex colour like
-        #F59E0B paints it.
+        No photo? The label fills the panel, and a hex colour like #F59E0B paints it.
       </p>
       {(["before", "after"] as const).map((side) => {
         const imageKey = side === "before" ? "beforeImage" : "afterImage";

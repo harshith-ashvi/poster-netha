@@ -1,12 +1,18 @@
 import type { Lang, Person, PosterData, TemplateId, Theme } from "./types";
 
-export const TEMPLATES: { id: TemplateId; name: string }[] = [
-  { id: "blessings", name: "Blessings" },
-  { id: "inauguration", name: "Inauguration" },
-  { id: "achievement", name: "Achievement" },
-  { id: "development", name: "Development" },
-  { id: "infrastructure", name: "Infrastructure" },
+// Optional inputs each template actually renders. Everything else (headline, achievement, leaders,
+// hero, tagline, footer, colours, stickers) is used by all templates. The editor hides the rest.
+type TemplateInfo = { id: TemplateId; name: string; bigNumber: boolean; beforeAfter: boolean };
+
+export const TEMPLATES: TemplateInfo[] = [
+  { id: "blessings", name: "Blessings", bigNumber: false, beforeAfter: false },
+  { id: "inauguration", name: "Inauguration", bigNumber: false, beforeAfter: false },
+  { id: "achievement", name: "Achievement", bigNumber: true, beforeAfter: false },
+  { id: "development", name: "Development", bigNumber: false, beforeAfter: true },
+  { id: "infrastructure", name: "Infrastructure", bigNumber: true, beforeAfter: true },
 ];
+
+export const templateInfo = (id: TemplateId) => TEMPLATES.find((t) => t.id === id)!;
 
 // --bg-from/--bg-to: background gradient, --accent: gold/trim, --text: main text, --plate: name plates
 export const THEMES: Theme[] = [
@@ -58,6 +64,13 @@ export const COPY: Record<Lang, Copy> = {
       "Inspired by",
     ],
   },
+  kn: {
+    name: "ಕನ್ನಡ",
+    congrats: "ಅಭಿನಂದನೆಗಳು",
+    breaking: "ತಾಜಾ ಸುದ್ದಿ",
+    headlines: ["ಐತಿಹಾಸಿಕ ಅಭಿವೃದ್ಧಿ", "ಸಮುದಾಯಕ್ಕೆ ಮಹಾನ್ ಸಾಧನೆ", "ಭವ್ಯ ಉದ್ಘಾಟನೆ", "ಯಶಸ್ವಿಯಾಗಿ ಪೂರ್ಣಗೊಂಡಿದೆ", "ರಾಷ್ಟ್ರಕ್ಕೆ ಹೆಮ್ಮೆಯ ಕ್ಷಣ"],
+    blessingsLabels: ["ಆಶೀರ್ವಾದದೊಂದಿಗೆ", "ದೂರದೃಷ್ಟಿಯ ನಾಯಕತ್ವದಲ್ಲಿ", "ಮಾರ್ಗದರ್ಶನದಲ್ಲಿ", "ಸ್ಫೂರ್ತಿಯಿಂದ"],
+  },
   hi: {
     name: "हिन्दी",
     congrats: "हार्दिक बधाई",
@@ -78,13 +91,6 @@ export const COPY: Record<Lang, Copy> = {
     breaking: "తాజా వార్త",
     headlines: ["చారిత్రాత్మక అభివృద్ధి", "సమాజానికి గొప్ప విజయం", "ఘన ప్రారంభోత్సవం", "విజయవంతంగా పూర్తయింది", "దేశానికి గర్వకారణమైన క్షణం"],
     blessingsLabels: ["ఆశీస్సులతో", "దార్శనిక నాయకత్వంలో", "మార్గదర్శకత్వంలో", "స్ఫూర్తితో"],
-  },
-  kn: {
-    name: "ಕನ್ನಡ",
-    congrats: "ಅಭಿನಂದನೆಗಳು",
-    breaking: "ತಾಜಾ ಸುದ್ದಿ",
-    headlines: ["ಐತಿಹಾಸಿಕ ಅಭಿವೃದ್ಧಿ", "ಸಮುದಾಯಕ್ಕೆ ಮಹಾನ್ ಸಾಧನೆ", "ಭವ್ಯ ಉದ್ಘಾಟನೆ", "ಯಶಸ್ವಿಯಾಗಿ ಪೂರ್ಣಗೊಂಡಿದೆ", "ರಾಷ್ಟ್ರಕ್ಕೆ ಹೆಮ್ಮೆಯ ಕ್ಷಣ"],
-    blessingsLabels: ["ಆಶೀರ್ವಾದದೊಂದಿಗೆ", "ದೂರದೃಷ್ಟಿಯ ನಾಯಕತ್ವದಲ್ಲಿ", "ಮಾರ್ಗದರ್ಶನದಲ್ಲಿ", "ಸ್ಫೂರ್ತಿಯಿಂದ"],
   },
 };
 
