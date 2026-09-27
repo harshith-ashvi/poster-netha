@@ -139,18 +139,15 @@ export interface PosterData {
   };
 }
 
-// src/lib/reducer.ts actions
+// src/lib/reducer.ts actions (reducer stays pure: callers create UUIDs / random copy)
 export type Action =
-  | { type: 'setField'; key: keyof PosterData; value: PosterData[keyof PosterData] }
-  | { type: 'setTemplate'; template: TemplateId }
-  | { type: 'addLeader' }                                   // no-op at 6
+  | { type: 'setField'; key: K; value: PosterData[K] }       // typed per key; also used for template switch
+  | { type: 'merge'; patch: Partial<PosterData> }           // randomCopy(lang), samplePoster(), emptyPoster(), lang switch
+  | { type: 'addLeader'; person: Person }                   // person = newPerson(); no-op at 6
   | { type: 'removeLeader'; id: string }
   | { type: 'updateLeader'; id: string; patch: Partial<Person> }
   | { type: 'updateHero'; patch: Partial<Person> }
-  | { type: 'toggleSticker'; key: keyof PosterData['stickers'] }
-  | { type: 'randomizeCopy' }
-  | { type: 'loadSample' }
-  | { type: 'reset' };
+  | { type: 'toggleSticker'; key: keyof Stickers };
 ```
 
 Templates own layout only; they read everything from `PosterData`. Localized copy (headline, blessings label) lives in `presets.ts` keyed by `Lang`; switching `lang` or pressing Randomize writes the chosen strings into `PosterData` so users can still edit them.
@@ -201,7 +198,7 @@ Include a **"Randomize copy"** button.
 
 Each phase ends with something runnable. Commit after each one.
 
-### Phase 1: Scaffold (30 min)
+### Phase 1: Scaffold (30 min) ✅ Done
 1. ~~`create-next-app`~~ **Done** (see "Current repo state").
 2. `bun add html-to-image canvas-confetti` and `bun add -d @types/canvas-confetti`.
 3. Set `output: 'export'` in `next.config.ts`.
