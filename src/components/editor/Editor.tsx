@@ -28,7 +28,7 @@ export function Editor() {
     // only the inputs column scrolls.
     <div className="relative mx-auto flex h-dvh w-full max-w-6xl flex-col overflow-hidden">
       <header className="flex flex-none items-center justify-between gap-3 border-b border-[#ecdcb4] px-4 py-3">
-        <Link href="/" className="inline-flex items-center gap-1.5 font-display text-2xl uppercase text-[#7a0a0a]">
+        <Link href="/" className="inline-flex items-center gap-1.5 font-display text-2xl text-[#7a0a0a]">
           <ArrowLeft size={20} aria-hidden />
           {SITE_NAME}
         </Link>

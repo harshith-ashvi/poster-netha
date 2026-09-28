@@ -1,6 +1,6 @@
 @AGENTS.md
 
-# Project: Vikas Ho Gaya (see plan/PLAN.md)
+# Project: PosterNetha (see plan/PLAN.md)
 
 Build phase by phase per `plan/PLAN.md`. Package manager: **bun**. App code in `src/`, import via `@/…`.
 

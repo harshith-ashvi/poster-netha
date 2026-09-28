@@ -1,6 +1,6 @@
 # PLAN.md: "Celebrate Anything Like an Indian Politician" Poster Generator
 
-Working name: **Vikas Ho Gaya** (change it in one place: `lib/config.ts`).
+Name: **PosterNetha** (written as one word; change it in one place: `src/lib/config.ts`). Renamed from the working name "Vikas Ho Gaya", which read as a jab at one party's slogans.
 Goal: a fun, shareable, client-side web app. A tiny achievement goes in, a giant over-the-top political-style flex banner comes out, ready to post on X/Instagram.
 Success metric: someone sees a generated poster and immediately sends it to a friend.
 

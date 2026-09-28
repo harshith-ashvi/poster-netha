@@ -40,7 +40,7 @@ export default function Home() {
   return (
     <div className="flex flex-1 flex-col">
       <header className="mx-auto flex w-full max-w-6xl items-center justify-between px-4 py-4">
-        <span className="font-display text-2xl uppercase text-[#7a0a0a]">{SITE_NAME}</span>
+        <span className="font-display text-2xl text-[#7a0a0a]">{SITE_NAME}</span>
         <nav className="flex items-center gap-1" aria-label="Social">
           <a href={SOCIAL.x} target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)" className={socialCls}>
             <XLogo />
